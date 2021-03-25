@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">IStrategiesApp</string>
+    <string name="istrategies">IStrategies</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="correo">Correo</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
 </resources>

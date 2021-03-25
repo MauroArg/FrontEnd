@@ -1,4 +1,4 @@
-package com.elaniin.istrategiesapp
+package com.elaniin.istrategiesapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
