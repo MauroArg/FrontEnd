@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.elaniin.istrategiesapp.R
 import com.elaniin.istrategiesapp.databinding.FragmentLoginBinding
+import com.elaniin.istrategiesapp.utils.Crypto
 import java.lang.ClassCastException
 
 class LoginFragment : Fragment() {
@@ -44,6 +45,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -52,9 +54,16 @@ class LoginFragment : Fragment() {
     ): View? {
         view = FragmentLoginBinding.inflate(inflater)
 
+
         view.btnLogin.setOnClickListener{
             if(!TextUtils.isEmpty(view.txtEmail.text) && !TextUtils.isEmpty(view.txtPass.text)){
-                btnLoginClicked.onBtnLoginClicked(view.txtEmail.text.toString(), view.txtPass.text.toString())
+                val crypto = Crypto()
+                val pass = view.txtPass.text!!.toString()
+                crypto.encriptar("0SPrEK0JntQ2qCm9cPEabw==", pass)?.let { it1 ->
+                    btnLoginClicked.onBtnLoginClicked(view.txtEmail.text.toString(),
+                        it1
+                    )
+                }
             }
             else{
                 Toast.makeText(requireActivity(), "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()

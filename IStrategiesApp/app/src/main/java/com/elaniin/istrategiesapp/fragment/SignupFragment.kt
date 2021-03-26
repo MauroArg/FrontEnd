@@ -1,60 +1,71 @@
 package com.elaniin.istrategiesapp.fragment
 
+import android.R
+import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.*
+import android.widget.Toast
+import android.view.KeyEvent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.elaniin.istrategiesapp.R
+import com.elaniin.istrategiesapp.databinding.FragmentSignupBinding
+import com.elaniin.istrategiesapp.utils.Crypto
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignupFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignupFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    interface BtnSignupClicked{
+        fun onBtnSignupClicked(email: String, name: String, pass: String)
+    }
+
+    private lateinit var btnSignupClicked: BtnSignupClicked
+
+    private lateinit var view: FragmentSignupBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        btnSignupClicked = try{
+            context as BtnSignupClicked
+        } catch (e: Exception){
+            throw ClassCastException("$context must implement BtnSignupClicked")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false)
-    }
+        view = FragmentSignupBinding.inflate(inflater)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignupFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignupFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        view.btnSignup.setOnClickListener {
+
+            if(!TextUtils.isEmpty(view.txtEmail.text) && !TextUtils.isEmpty(view.txtUser.text) && !TextUtils.isEmpty(
+                    view.txtPass.text
+                )){
+                val crypto: Crypto = Crypto()
+                val pass = view.txtPass.text!!.toString()
+                crypto.encriptar("0SPrEK0JntQ2qCm9cPEabw==", pass)?.let { it1 ->
+                    btnSignupClicked.onBtnSignupClicked(
+                        view.txtEmail.text.toString(),
+                        view.txtUser.text.toString(),
+                        it1
+                    )
                 }
             }
+            else{
+                Toast.makeText(
+                    requireActivity(),
+                    "Por favor complete todos los campos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        return view.root
     }
 }
