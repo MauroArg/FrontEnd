@@ -83,4 +83,8 @@ dependencies {
     //Imagenes
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
+    //Dialogs
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:input:3.3.0'
+
 }

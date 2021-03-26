@@ -11,6 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
+import com.elaniin.istrategiesapp.R
 import com.elaniin.istrategiesapp.adapter.AccountAdapter
 import com.elaniin.istrategiesapp.api.ResponseStatus
 import com.elaniin.istrategiesapp.database.AppDatabase
@@ -87,7 +90,26 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.btnLogout.setOnClickListener {
-            viewModel.logout()
+            MaterialDialog(this).show {
+                title(text = "IStrategies")
+                message(text = "Cerrar sesion?")
+                cornerRadius(16f)
+                positiveButton(text = "Cerrar sesion"){ dialog ->
+                    // Do something
+                    viewModel.logout()
+                }
+                negativeButton(text = "Cancelar"){ dialog ->
+                    dialog.dismiss()
+                }
+
+            }
+        }
+
+        binding.btnAdd.setOnClickListener {
+            MaterialDialog(this).show {
+                input(waitForPositiveButton = true, hintRes = R.string.agregar_cuenta)
+                positiveButton(text = "Agregar")
+            }
         }
     }
 
