@@ -17,14 +17,6 @@ class LoginRepository (private val database: AppDatabase) {
 
     val session = database.sessionDao.getSession()
 
-    suspend fun createSession(id: Long){
-        return withContext(Dispatchers.IO){
-            val session:Session = Session(id)
-
-            database.sessionDao.insert(session)
-        }
-    }
-
     suspend fun login(body: LoginBody): Boolean{
         try{
             var answer : Boolean

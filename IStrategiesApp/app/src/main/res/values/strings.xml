@@ -8,4 +8,7 @@
     <string name="contrase_a">Contraseña</string>
     <string name="correo">Correo</string>
     <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="agregar_cuenta">Agregar cuenta</string>
+    <string name="aun_no_tienes_cuentas_asosiadas">Aun no tienes cuentas asosiadas</string>
 </resources>

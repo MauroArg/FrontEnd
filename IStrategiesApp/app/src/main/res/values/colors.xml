@@ -7,4 +7,5 @@
     <color name="assent">#A90808</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#DEE0E4</color>
 </resources>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.elaniin.istrategiesapp.database.AppDatabase
@@ -36,7 +37,9 @@ class SplashActivity : AppCompatActivity() {
             /* Create an Intent that will start the Menu-Activity. */
             session.observe(this, Observer { session ->
                 if (session.count() > 0) {
+                    Log.e("USER", session.elementAt(0).id.toString())
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("id", session.elementAt(0).id)
                     startActivity(intent)
                     finish()
                 } else {

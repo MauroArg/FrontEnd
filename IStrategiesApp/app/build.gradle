@@ -77,4 +77,10 @@ dependencies {
     implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.4"
     androidTestImplementation "androidx.navigation:navigation-testing:2.3.4"
 
+    //Overscroll
+    implementation 'com.chauthai.overscroll:overscroll-bouncy:0.1.0'
+
+    //Imagenes
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
+
 }

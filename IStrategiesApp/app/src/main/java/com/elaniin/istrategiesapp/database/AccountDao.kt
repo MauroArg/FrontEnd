@@ -13,7 +13,7 @@ interface AccountDao {
     fun insert(regs: MutableList<Account>)
 
     @Query("SELECT * FROM account")
-    fun getPokemons(): LiveData<MutableList<Account>>
+    fun getAccounts(): LiveData<MutableList<Account>>
 
     @Query("DELETE FROM account")
     fun delete()
