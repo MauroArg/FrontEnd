@@ -12,6 +12,9 @@ interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(regs: MutableList<Account>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOne(regs: Account)
+
     @Query("SELECT * FROM account")
     fun getAccounts(): LiveData<MutableList<Account>>
 

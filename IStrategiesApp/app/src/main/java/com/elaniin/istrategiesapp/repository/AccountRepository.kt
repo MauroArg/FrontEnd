@@ -4,6 +4,7 @@ import android.util.Log
 import com.elaniin.istrategiesapp.api.service
 import com.elaniin.istrategiesapp.database.AppDatabase
 import com.elaniin.istrategiesapp.model.account.Account
+import com.elaniin.istrategiesapp.model.account.AccountResponse
 import com.elaniin.istrategiesapp.model.account.AccountsResponse
 import com.elaniin.istrategiesapp.model.user.Session
 import kotlinx.coroutines.Dispatchers
@@ -34,12 +35,27 @@ class AccountRepository (private val database: AppDatabase){
         }
     }
 
+    suspend fun addAccount(body: Account): Boolean{
+        return try{
+            var answer : Boolean
+            val co = withContext(Dispatchers.IO){
+                var res = service.addAccount(body)
+                database.accountDao.insertOne(res.account)
+                answer = res.code == 0
+            }
+            answer
+        } catch (th: Throwable){
+            false
+        }
+    }
+
     suspend fun logout(){
         return withContext(Dispatchers.IO){
             database.sessionDao.delete()
             database.accountDao.delete()
         }
     }
+
 
     private fun parseResponse(response: AccountsResponse): MutableList<Account>{
         val account = mutableListOf<Account>()

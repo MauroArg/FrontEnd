@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elaniin.istrategiesapp.api.ResponseStatus
 import com.elaniin.istrategiesapp.database.getDatabase
+import com.elaniin.istrategiesapp.model.account.Account
 import com.elaniin.istrategiesapp.model.user.LoginBody
 import com.elaniin.istrategiesapp.model.user.Session
 import com.elaniin.istrategiesapp.repository.AccountRepository
@@ -26,6 +27,10 @@ class AccountViewModel(application: Application): AndroidViewModel(application) 
     val statusGet: LiveData<ResponseStatus>
         get() = _statusGet
 
+    private val _statusAdd = MutableLiveData<ResponseStatus>()
+    val statusAdd: LiveData<ResponseStatus>
+        get() = _statusAdd
+
     private var _userLiveData: MutableLiveData<Session>? = MutableLiveData()
 
     val userLiveData: LiveData<Session>?
@@ -36,6 +41,26 @@ class AccountViewModel(application: Application): AndroidViewModel(application) 
             try {
                 _statusGet.value = ResponseStatus.LOADING
                 if(repository.getAccount(id)){
+                    _statusGet.value = ResponseStatus.DONE
+                }
+                else{
+                    _statusGet.value = ResponseStatus.REJECTED
+                }
+
+            } catch (e: UnknownHostException){
+                _statusGet.value = ResponseStatus.NO_INTERNET
+            }catch (e: Exception){
+                _statusGet.value = ResponseStatus.ERROR
+            }
+        }
+    }
+
+    fun AddAccount(id: Long, name: String, idUser: Long){
+        viewModelScope.launch {
+            try {
+                _statusGet.value = ResponseStatus.LOADING
+                var body = Account(id,name,idUser)
+                if(repository.addAccount(body)){
                     _statusGet.value = ResponseStatus.DONE
                 }
                 else{

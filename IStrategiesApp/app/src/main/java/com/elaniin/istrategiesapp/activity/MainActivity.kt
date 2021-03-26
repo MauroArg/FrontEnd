@@ -82,6 +82,19 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.statusAdd.observe(this, Observer {
+            if (it == ResponseStatus.LOADING) {
+                binding.loadingWheel.visibility = View.VISIBLE
+            } else {
+                binding.loadingWheel.visibility = View.GONE
+            }
+
+            if (it == ResponseStatus.NO_INTERNET) {
+                Toast.makeText(this, "No posee conexion a  internet",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
+
         viewModel.userLiveData?.observe(this, Observer {
                 userData ->
             if(userData == null){
@@ -106,9 +119,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener {
+            var name : String = ""
             MaterialDialog(this).show {
-                input(waitForPositiveButton = true, hintRes = R.string.agregar_cuenta)
+                input(waitForPositiveButton = true, hintRes = R.string.agregar_cuenta, allowEmpty = false){dialog, text ->
+                    name = text.toString()
+                    viewModel.AddAccount(0,name,id)
+                    viewModel.GetAccount(id)
+                    adapter.notifyDataSetChanged()
+
+                }
                 positiveButton(text = "Agregar")
+
             }
         }
     }

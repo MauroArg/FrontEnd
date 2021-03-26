@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elaniin.istrategiesapp.databinding.ItemAccountBinding
 import com.elaniin.istrategiesapp.model.account.Account
 
-class AccountAdapter(private val context: Context): ListAdapter<Account, AccountAdapter.ViewHolder>(DiffCallback){
+
+class AccountAdapter(private val context: Context): ListAdapter<Account, AccountAdapter.ViewHolder>(
+    DiffCallback
+){
     companion object DiffCallback: DiffUtil.ItemCallback<Account>(){
         override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
             return oldItem === newItem
@@ -53,5 +56,7 @@ class AccountAdapter(private val context: Context): ListAdapter<Account, Account
         val account = getItem(position)
         holder.bind(account)
     }
+
+
 
 }
