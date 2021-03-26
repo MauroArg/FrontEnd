@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeActionId="6"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:paddingTop="30dp"
                 android:imeActionLabel="Sign In"
                 android:imeOptions="actionUnspecified"

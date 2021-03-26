@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.elaniin.istrategiesapp.R
 import com.elaniin.istrategiesapp.api.ResponseStatus
 import com.elaniin.istrategiesapp.databinding.ActivityLoginBinding
@@ -26,7 +27,6 @@ class LoginActivity : AppCompatActivity(), LoginFragment.BtnRegisterClicked, Log
         super.onCreate(savedInstanceState)
         var binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
@@ -78,7 +78,6 @@ class LoginActivity : AppCompatActivity(), LoginFragment.BtnRegisterClicked, Log
                 }
             }
         })
-
     }
 
     private fun startRegisterFragment(){
